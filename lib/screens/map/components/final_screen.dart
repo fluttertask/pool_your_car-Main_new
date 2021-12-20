@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pool_your_car/size_config.dart';
 
 class FinalScreen extends StatefulWidget {
   const FinalScreen({Key key, this.fare}) : super(key: key);
@@ -29,22 +30,25 @@ class _FinalScreenState extends State<FinalScreen> {
               SizedBox(
                 height: 15,
               ),
-              Column(
-                children: [
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Text("Ride Ended Please Collect",
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.w500,
-                      )),
-                  Text(" Rs ${widget.fare * 0.8}",
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.w500,
-                      )),
-                ],
+              SizedBox(
+                height: SizeConfig.screenHeight * 0.3,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text("Ride Ended Please Collect",
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.w500,
+                        )),
+                    Text(" Rs ${widget.fare * 0.8}",
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.w500,
+                        )),
+                  ],
+                ),
               ),
               Text("from Passanger",
                   style: TextStyle(
@@ -56,7 +60,7 @@ class _FinalScreenState extends State<FinalScreen> {
               ),
               FloatingActionButton.extended(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/home');
+                  Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
                 },
                 label: const Text('Proceed'),
               ),
