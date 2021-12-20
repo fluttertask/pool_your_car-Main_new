@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:cherry_toast/cherry_toast.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -327,13 +328,11 @@ class _MapScreenState extends State<MapScreen> {
         });
         _goToYourLocation();
       } else {
-        Fluttertoast.showToast(
-          msg: data['message'],
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.SNACKBAR,
-          backgroundColor: kPrimaryColor,
-          textColor: Colors.white,
-          fontSize: 20.0,
+        CherryToast.info(
+          autoDismiss: true,
+          toastDuration: Duration(milliseconds: 2000),
+          title: '',
+          description: data['message'],
         );
       }
     } else {
@@ -350,6 +349,16 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   Future<void> _endRide() async {
+    if (!isRideStarted) {
+      CherryToast.info(
+        autoDismiss: true,
+        toastDuration: Duration(milliseconds: 2000),
+        title: '',
+        description: "Ride hasn`t strarted",
+      );
+
+      return;
+    }
     final String apiUrl = "https://$myip/api/ride/endride";
     var body =
         jsonEncode({'rideId': this.widget.ride, 'userId': sharedprefenrenceid});
